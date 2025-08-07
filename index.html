@@ -203,18 +203,22 @@
     
     // Handle form submission asynchronously
     const form = document.getElementById('submissionForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const resultDiv = document.getElementById('result');
+    
     form.addEventListener('submit', async function(event) {
-      event.preventDefault();
+      event.preventDefault(); // Prevent form from submitting the traditional way
 
-      // Show immediate "Checking records..." message
-      document.getElementById('result').textContent = "Checking records...";
+      // 1. Show "Checking Records" immediately when the submit button is clicked
+      submitBtn.disabled = true; // Disable submit button to prevent multiple submissions
+      resultDiv.textContent = "Checking records...";
 
       const formData = new FormData(form);
       const data = Object.fromEntries(formData.entries());
 
       try {
-        // Send the form data to the n8n webhook (background task)
-        const response = await fetch('https://d1vgzohq03g9j8.cloudfront.net/webhook/submit-form', {
+        // 2. Send form data to the n8n Webhook (Asynchronous Task)
+        const response = await fetch('https://your-n8n-server/webhook/submit-form', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -226,11 +230,17 @@
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
-        // Wait for the workflow to complete and receive the response
+        // 3. Wait for the workflow to complete and get the response
         const result = await response.json();
-        document.getElementById('result').textContent = `Success: ${result.message || 'Your report is being processed.'}`;
+        
+        // 4. After the workflow completes, update the response message
+        resultDiv.textContent = `Success: ${result.message || 'Your report is being processed.'}`;
       } catch (error) {
-        document.getElementById('result').textContent = `Error: ${error.message}`;
+        // Handle errors (if any)
+        resultDiv.textContent = `Error: ${error.message}`;
+      } finally {
+        // Re-enable the submit button after processing
+        submitBtn.disabled = false;
       }
     });
   </script>
