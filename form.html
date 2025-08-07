@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Report Generation Form</title>
+  <style>
+    :root {
+      --font-family: 'Open Sans', sans-serif;
+      --font-weight-normal: 400;
+      --font-weight-bold: 600;
+      --font-size-body: 12px;
+      --font-size-label: 14px;
+      --font-size-input: 14px;
+      --font-size-header: 24px;
+      --font-size-subheader: 14px;
+      --color-background: #fbfcfe;
+      --color-card-bg: #ffffff;
+      --color-card-border: #dbdfe7;
+      --color-card-shadow: rgba(99, 77, 255, 0.06);
+      --color-label: #555555;
+      --color-input-border: #dbdfe7;
+      --color-input-text: #71747A;
+      --color-focus-border: rgb(90, 76, 194);
+      --color-submit-btn-bg: #ff6d5a;
+      --color-submit-btn-text: #ffffff;
+      --color-required: #ff6d5a;
+      --color-divider: #dbdfe7;
+      --border-radius-input: 6px;
+      --card-border-radius: 8px;
+      --card-padding: 24px;
+      --card-margin-bottom: 16px;
+      --submit-btn-height: 48px;
+      --container-width: 448px;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background-color: var(--color-background);
+      display: flex;
+      justify-content: center;
+      padding: 40px;
+    }
+
+    .form-container {
+      background-color: var(--color-card-bg);
+      border: 1px solid var(--color-card-border);
+      box-shadow: 0px 4px 16px 0px var(--color-card-shadow);
+      border-radius: var(--card-border-radius);
+      padding: var(--card-padding);
+      width: 100%;
+      max-width: var(--container-width);
+    }
+
+    h1 {
+      text-align: center;
+      font-size: var(--font-size-header);
+      color: var(--color-label);
+      margin-bottom: 16px;
+    }
+
+    h2 {
+      font-size: var(--font-size-subheader);
+      color: var(--color-label);
+      font-weight: var(--font-weight-bold);
+      margin-top: 30px;
+      margin-bottom: 8px;
+    }
+
+    label {
+      display: block;
+      font-size: var(--font-size-label);
+      color: var(--color-label);
+      margin-bottom: 10px;
+      margin-top: 20px;
+    }
+
+    select, input[type="text"], input[type="datetime-local"], textarea {
+      width: 100%;
+      padding: 10px;
+      font-size: var(--font-size-input);
+      border: 1px solid var(--color-input-border);
+      border-radius: var(--border-radius-input);
+      color: var(--color-input-text);
+      box-sizing: border-box;
+    }
+
+    input:disabled, textarea:disabled {
+      opacity: 0.5;
+      background-color: #f3f4f6;
+      cursor: not-allowed;
+      /* margin-bottom: 8px;
+      margin-top: 8px; */
+    }
+
+    hr.divider {
+      margin: 24px 0;
+      border: none;
+      border-top: 1px solid var(--color-divider);
+    }
+
+    button {
+      margin-top: 24px;
+      width: 100%;
+      height: var(--submit-btn-height);
+      background-color: var(--color-submit-btn-bg);
+      color: var(--color-submit-btn-text);
+      border: none;
+      border-radius: var(--border-radius-input);
+      font-weight: var(--font-weight-bold);
+      font-size: var(--font-size-label);
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h1>Report Generation Form</h1>
+    <form id="submissionForm" action="https://d1vgzohq03g9j8.cloudfront.net/webhook-test/submit-form" method="POST">
+
+      <!-- Campaign Fields -->
+      <label for="campaignId">Campaign ID</label>
+      <select id="campaignId" name="campaignId" required>
+        <option value="">Select Campaign ID</option>
+        <option value="cmdwjh0c00000le04seusqhpi">cmdwjh0c00000le04seusqhpi (Findie: Market Intelligence Trial)</option>
+        <option value="cmcq2wnc8000wl104g36593bs">cmcq2wnc8000wl104g36593bs (OpenRice)</option>
+        <option value="cmcmuh49u0000l504xgkl8160">cmcmuh49u0000l504xgkl8160 (寵物用品Competitor)</option>
+        <option value="CAMP004">will include more...the above ids are for testing only (don't choose this).</option>
+      </select>
+
+      <label for="campaignName">Campaign Name</label>
+      <input type="text" id="campaignName" name="campaignName" placeholder="campaign name you would like to display in the report" required />
+
+      <label for="description">Description</label>
+      <textarea id="description" name="description" rows="3" placeholder="campaign description you would like to display in the report"></textarea>
+
+      <label for="startDateTime">Start DateTime</label>
+      <input type="date" id="startDateTime" name="startDateTime" required />
+
+      <label for="endDateTime">End DateTime</label>
+      <input type="date" id="endDateTime" name="endDateTime" required />
+
+      <!-- Divider -->
+      <hr class="divider" />
+
+      <!-- Stories Section -->
+      <h2 style="font-size: 16px">Stories</h2>
+
+      <label for="storyHashtags">Hashtags</label>
+      <input type="text" id="storyHashtags" name="storyHashtags" placeholder="topic1, topic2..." disabled />
+
+      <label for="storyMentions">Mentions</label>
+      <input type="text" id="storyMentions" name="storyMentions" placeholder="user1, user2..." disabled />
+
+      <!-- Divider -->
+      <hr class="divider" />
+
+      <!-- Posts Section -->
+      <h2 style="font-size: 16px">Posts</h2>
+
+      <label for="postHashtags">Hashtags</label>
+      <input type="text" id="postHashtags" name="postHashtags" placeholder="topic1, topic2..." disabled />
+
+      <label for="postMentions">Mentions</label>
+      <input type="text" id="postMentions" name="postMentions" placeholder="user1, user2..." disabled />
+
+      <!-- Submit Button -->
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    const campaignSelect = document.getElementById('campaignId');
+    const toggleFields = [
+      'storyHashtags',
+      'storyMentions',
+      'postHashtags',
+      'postMentions'
+    ];
+
+    campaignSelect.addEventListener('change', () => {
+      const isEnabled = campaignSelect.value !== '';
+      toggleFields.forEach(id => {
+        document.getElementById(id).disabled = !isEnabled;
+      });
+    });
+
+    // ✅ Validate Start Date < End Date
+    document.getElementById('submissionForm').addEventListener('submit', function (e) {
+      const start = new Date(document.getElementById('startDateTime').value);
+      const end = new Date(document.getElementById('endDateTime').value);
+
+      if (start >= end) {
+        e.preventDefault(); // stop submission
+        alert('Start DateTime must be earlier than End DateTime.');
+      }
+    });
+  </script>
+</body>
+</html>
